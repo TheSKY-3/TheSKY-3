@@ -1,8 +1,8 @@
 # 吴柏高
 
-**广东财经大学 · 统计学硕士在读 ｜ 求职方向：数据分析 · 经营分析 · 数据策略**
+**广东财经大学 · 统计学硕士在读 ｜ 专注领域：Agent 工程 · LLM 应用**
 
-把业务问题拆成可验证的指标，把重复的分析流程做成可复现的系统。
+做可验证的 LLM Agent：算得对、说得清、错了能降级。
 
 广州 ｜ [个人网站](https://thesky-3.github.io) ｜ [邮箱](mailto:1525546469@qq.com) ｜ [GitHub](https://github.com/TheSKY-3)
 
@@ -10,42 +10,23 @@
 
 ## 简介
 
-📊 统计学硕士在读，方向：经营分析 / 数据分析 / 数据策略；项目集中在出行与电商。
+专注 Agent 工程 / LLM 应用。核心原则是“确定性代码负责事实，模型负责规划与解释”，每个结论都能回到原始数据。
 
-🛠️ 比较擅长的两件事：
-
-- **把业务问题拆成能算、能对得上的指标。** 在出行平台分析过 1015 万+ 订单的渠道、补贴与履约，最后做成一张分渠道的策略矩阵；在 Olist 电商公开数据里用 9.6 万笔订单定位到“履约延迟是差评头号杀手”。
-- **把重复的分析做成能复用的系统。** 司机运营日报从 2 小时压到 5 分钟、连续跑了 60 期；把三方结算的 21 项规则固化成标准字段；月度财务对账从 1 天缩到 10 分钟。
-
-比起“图很漂亮”，更在意数字能不能回到原始表，所以愿意在指标定义和校验上多花时间。
-
-🤖 目前在做一个电商结算对账原型和一个商品评论证据原型，共同原则是“确定性代码负责事实，大模型只负责解释”，每个结论都能回到原始数据。
-
-🔍 研究关注金融欺诈报警的优先级排序：在有限复核人力下，哪些报警该优先查。第一作者论文在投。
+关注点不是 Demo 能不能跑，而是算得对不对、错了能不能降级。
 
 ## 主要项目
 
-### 01 电商结算对账 Agent ｜ [代码](https://github.com/TheSKY-3/ecom-settlement-recon) · [案例](https://thesky-3.github.io/projects/settlement-recon)
+两个开源 Agent 原型，加一个作品集站：
 
-**产品价值**：把三方对账从「逐笔翻账 + 手工写说明」变成「看结论 + 抽查引用」，每个数字都能点回账本。
+| 项目 | 一句话介绍 | 主要技术 |
+| --- | --- | --- |
+| **[电商结算对账 Agent](https://github.com/TheSKY-3/ecom-settlement-recon)**<br><sub>[案例](https://thesky-3.github.io/projects/settlement-recon)</sub> | 把三方对账从逐笔翻账变成看结论、抽查引用，每个数字都能点回账本。<br>9.9 万单 / 2.5 秒；1,750 条合成差异召回 100%、真误报 0；跨域 BenchRec 99.67%，高于官方 ChatGPT 基线 95.20%。 | Python · FastAPI · SQLite<br>确定性规则树 · 独立验证器 · 受约束 LLM |
+| **[电商评论证据 Agent](https://github.com/TheSKY-3/ecom-review-intelligence)**<br><sub>[案例](https://thesky-3.github.io/projects/ecom-review-agent)</sub> | 让运营不翻几千条评论，也能拿到可回查、能复核的问题证据。<br>3 商品 / 11,958 条评论；四道机器校验，任一条不过整段作废。 | Python · FastAPI · LangGraph<br>SQLite/FTS5 · Verifier |
+| **[个人作品集站](https://thesky-3.github.io)** | 把项目、方法和证据边界整理成可阅读的案例页。 | Astro · TypeScript<br>GitHub Actions |
 
-**做法**：确定性规则树 + 独立验证器 + 审计链；LLM 只组织语言，答案里的数字与编号必须命中事实单白名单，违规自动降级为模板。
+> 两个 Agent 均为本地原型：结算用公开电商数据 + 合成差异评测，评论用 3 商品演示子集；完整边界见项目页。
 
-**结果**：约 2.5 秒扫完 9.9 万单；1,750 条注入差异召回 100%、真误报 0；同一套匹配思想跑 BenchRec 银行对账，精度 99.67%（官方 ChatGPT 基线 95.20%）。
-
-**技术 / 状态**：Python · FastAPI · SQLite · DeepSeek（可选）；本地原型 + 合成数据评测，未使用公司真实账单。
-
-### 02 电商评论证据 Agent ｜ [代码](https://github.com/TheSKY-3/ecom-review-intelligence) · [案例](https://thesky-3.github.io/projects/ecom-review-agent)
-
-**产品价值**：把海量评论从「翻页拼证据」变成「可回查的证据卡 + 可执行的核查顺序」，运营能复核，而不是拿一段无法溯源的总结。
-
-**做法**：本地证据引擎（SQLite/FTS5）+ 逐字段 Verifier；模型只拿运行期别名与聚合卡；AI 深入分析四道机器校验，任一条不过整段丢弃。
-
-**结果**：仓库自带 3 商品、11,958 条评论的演示子集，克隆即跑；Windows 单文件版双击即用，无 key 时全链路离线确定性模式。
-
-**技术 / 状态**：Python · FastAPI · LangGraph · DeepSeek（可选）；阶段性工程验证完成，真人试用尚未进行。
-
-### 03 经营分析案例
+## 业务分析案例
 
 | 案例 | 规模 | 关键结论 |
 | --- | --- | --- |
@@ -55,15 +36,15 @@
 
 > 代码未公开；完整方法、图表与边界见各案例页。
 
-### 04 研究：金融欺诈报警的代价风险评估（TC-CCR）
+## 研究：金融欺诈报警的代价风险评估（TC-CCR）
 
-第一作者 · 论文在投。把「一个评分模型」变成「一份受复核容量与错误代价约束的报警名单预算」。IEEE-CIS + BAF 约 159 万条样本，时间一致验证；10% 复核容量下，OOF 成本最优阈值使未来测试总成本相对默认阈值降低 **40.37%–48.60%**。 [研究详情](https://thesky-3.github.io/research)
+**风控团队不缺模型分数，缺的是“先查谁、查多少”。** TC-CCR 不止于 AUC，而是用代价敏感决策把评分模型变成一份受复核容量与错误代价约束的报警名单预算：在 10% 复核容量下，OOF 成本最优阈值把未来测试总成本降低 **40.37%–48.60%**，让有限的复核人力优先落在更值得查的报警上。IEEE-CIS + BAF 约 159 万条样本，时间一致验证；第一作者，论文在投。 [研究详情](https://thesky-3.github.io/research)
 
-## 工具栈
+## 技术栈
 
-- **分析**：Python（Pandas / NumPy / Matplotlib）· SQL（MySQL、窗口函数）· Power BI / DAX · Excel
-- **工程**：FastAPI · SQLite / FTS5 · Docker · pytest · GitHub Actions
-- **AI**：LangGraph · 结构化输出 · 受约束 Agent · 评测与校验（Verifier）
+- **Agent / LLM**：LangGraph · 结构化输出 · 受约束 Agent · 评测与校验（Verifier）· 合成评测 · 降级策略
+- **工程**：Python · FastAPI · SQLite / FTS5 · Docker · pytest · GitHub Actions
+- **分析**：SQL（MySQL、窗口函数）· Power BI / DAX · Pandas / NumPy
 
 ## 联系
 
