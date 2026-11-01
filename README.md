@@ -16,15 +16,16 @@
 
 ## 主要项目
 
-两个开源 Agent 原型，加一个作品集站：
+三个开源 Agent 原型，加一个作品集站：
 
 | 项目 | 一句话介绍 | 主要技术 |
 | --- | --- | --- |
 | **[电商结算对账 Agent](https://github.com/TheSKY-3/ecom-settlement-recon)**<br><sub>[案例](https://thesky-3.github.io/projects/settlement-recon)</sub> | 把三方对账从逐笔翻账变成看结论、抽查引用，每个数字都能点回账本。<br>9.9 万单 / 2.5 秒；1,750 条合成差异召回 100%、真误报 0；跨域 BenchRec 99.67%，高于官方 ChatGPT 基线 95.20%。 | Python · FastAPI · SQLite<br>确定性规则树 · 独立验证器 · 受约束 LLM |
 | **[电商评论证据 Agent](https://github.com/TheSKY-3/ecom-review-intelligence)**<br><sub>[案例](https://thesky-3.github.io/projects/ecom-review-agent)</sub> | 让运营不翻几千条评论，也能拿到可回查、能复核的问题证据。<br>3 商品 / 11,958 条评论；四道机器校验，任一条不过整段作废。 | Python · FastAPI · LangGraph<br>SQLite/FTS5 · Verifier |
+| **[财报问答 RAG](https://github.com/TheSKY-3/maotai-annual-report-rag)**<br><sub>茅台年报 · 556 页</sub> | 从翻 556 页找数字，变成问一句拿页码：答案必须带原文出处，查不到就明说查不到。<br>50 题自建测试集；检索前 5 条命中正确页码的比例 30%→62%；5 道「年报里没有答案」的题一次未编造。 | Python · Streamlit<br>BGE 中文嵌入 · BM25 + 向量混合检索<br>reranker 精排 · Qwen3-4B / DeepSeek |
 | **[个人作品集站](https://thesky-3.github.io)** | 把项目、方法和证据边界整理成可阅读的案例页。 | Astro · TypeScript<br>GitHub Actions |
 
-> 两个 Agent 均为本地原型：结算用公开电商数据 + 合成差异评测，评论用 3 商品演示子集；完整边界见项目页。
+> 三个 Agent 均为本地原型：结算用公开电商数据 + 合成差异评测，评论用 3 商品演示子集，RAG 用 4 份公开年报 + 50 题自建测试集；完整边界见各项目页。
 
 ## 业务分析案例
 
@@ -43,6 +44,7 @@
 ## 技术栈
 
 - **Agent / LLM**：LangGraph · 结构化输出 · 受约束 Agent · 评测与校验（Verifier）· 合成评测 · 降级策略
+- **RAG**：BGE 中文嵌入 · BM25 + 向量混合检索（RRF）· reranker 精排 · 页码级出处引用
 - **工程**：Python · FastAPI · SQLite / FTS5 · Docker · pytest · GitHub Actions
 - **分析**：SQL（MySQL、窗口函数）· Power BI / DAX · Pandas / NumPy
 
